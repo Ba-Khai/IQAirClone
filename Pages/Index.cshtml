@@ -1,0 +1,727 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Ứng dụng chất lượng không khí AirVisual";
+}
+
+@* ===================================================
+   Index.cshtml — IQAir Air Quality App Page
+   Sections: Hero → Stats → Features → AQI Chart
+             → App Showcase → Pollutants → Partners → Download CTA
+   =================================================== *@
+
+
+<!-- ========================================
+     SECTION 1: HERO
+     Background xanh đậm, mockup phone, CTA
+     ======================================== -->
+<section class="iq-hero" id="hero">
+    <div class="iq-hero-bg-shapes">
+        <div class="iq-shape iq-shape-1"></div>
+        <div class="iq-shape iq-shape-2"></div>
+        <div class="iq-shape iq-shape-3"></div>
+    </div>
+    <div class="container">
+        <div class="row align-items-center iq-hero-row">
+
+            <!-- Left: Text -->
+            <div class="col-lg-6 iq-hero-content" data-animate="fadeInLeft">
+                <div class="iq-hero-badge mb-3">
+                    <i class="bi bi-award-fill me-2"></i> Ứng dụng chất lượng không khí #1 thế giới
+                </div>
+                <h1 class="iq-hero-title">
+                    Theo dõi không khí<br />
+                    <span class="iq-hero-highlight">thông minh hơn</span><br />
+                    mỗi ngày
+                </h1>
+                <p class="iq-hero-desc">
+                    Dữ liệu chất lượng không khí theo thời gian thực từ hơn
+                    <strong>500.000+ địa điểm</strong> tại 100+ quốc gia. Dự báo 7 ngày,
+                    cảnh báo ô nhiễm và lời khuyên sức khỏe tức thì.
+                </p>
+
+                <!-- App Store Buttons -->
+                <div class="iq-hero-cta d-flex flex-wrap gap-3 mb-4">
+                    <a href="#" class="iq-store-btn iq-store-apple">
+                        <i class="bi bi-apple iq-store-icon"></i>
+                        <div class="iq-store-text">
+                            <small>Tải về trên</small>
+                            <strong>App Store</strong>
+                        </div>
+                    </a>
+                    <a href="#" class="iq-store-btn iq-store-google">
+                        <svg class="iq-store-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M3.18 23.76c.3.17.64.24.98.21l12.67-11.63-2.98-2.98L3.18 23.76z" fill="#EA4335" />
+                            <path d="M22.45 10.56l-2.97-1.7-3.37 3.08 3.37 3.09 2.99-1.72c.85-.49.85-2.26-.02-2.75z" fill="#FBBC05" />
+                            <path d="M3.18.24C2.83.21 2.49.28 2.19.45L14.52 12.7l2.99-2.98L3.18.24z" fill="#4285F4" />
+                            <path d="M2.19.45C1.44.88 1 1.73 1 2.87v18.26c0 1.14.44 1.99 1.19 2.43l12.33-12.33L2.19.45z" fill="#34A853" />
+                        </svg>
+                        <div class="iq-store-text">
+                            <small>Tải về trên</small>
+                            <strong>Google Play</strong>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Trust indicators -->
+                <div class="iq-hero-trust">
+                    <div class="iq-trust-item">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <span>4.8/5 trên App Store</span>
+                    </div>
+                    <div class="iq-trust-sep"></div>
+                    <div class="iq-trust-item">
+                        <i class="bi bi-download text-info"></i>
+                        <span>10M+ lượt tải</span>
+                    </div>
+                    <div class="iq-trust-sep"></div>
+                    <div class="iq-trust-item">
+                        <i class="bi bi-shield-check text-success"></i>
+                        <span>Miễn phí hoàn toàn</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Phone Mockup -->
+            <div class="col-lg-6 iq-hero-mockup-col" data-animate="fadeInRight">
+                <div class="iq-phone-wrapper">
+                    <div class="iq-phone-mockup">
+                        <!-- Phone frame -->
+                        <div class="iq-phone-screen">
+                            <!-- App UI simulation inside phone -->
+                            <div class="iq-app-screen">
+                                <div class="iq-app-header-bar">
+                                    <span class="iq-app-location"><i class="bi bi-geo-alt-fill"></i> Đà Nẵng, Việt Nam</span>
+                                    <i class="bi bi-bell"></i>
+                                </div>
+                                <div class="iq-app-aqi-main">
+                                    <div class="iq-app-aqi-circle" id="heroAqiCircle">
+                                        <div class="iq-aqi-number">42</div>
+                                        <div class="iq-aqi-label">AQI US</div>
+                                    </div>
+                                    <div class="iq-app-aqi-status good">Tốt</div>
+                                    <p class="iq-app-aqi-msg">Không khí trong lành. Lý tưởng cho hoạt động ngoài trời!</p>
+                                </div>
+                                <div class="iq-app-pollutants-row">
+                                    <div class="iq-app-poll-item">
+                                        <small>PM2.5</small>
+                                        <span>8.2</span>
+                                    </div>
+                                    <div class="iq-app-poll-item">
+                                        <small>PM10</small>
+                                        <span>14.1</span>
+                                    </div>
+                                    <div class="iq-app-poll-item">
+                                        <small>O₃</small>
+                                        <span>31.4</span>
+                                    </div>
+                                    <div class="iq-app-poll-item">
+                                        <small>NO₂</small>
+                                        <span>12.7</span>
+                                    </div>
+                                </div>
+                                <div class="iq-app-forecast">
+                                    <div class="iq-app-forecast-title">Dự báo 24h</div>
+                                    <canvas id="miniChart" width="240" height="60"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Phone notch -->
+                        <div class="iq-phone-notch"></div>
+                    </div>
+                    <!-- Floating cards around phone -->
+                    <div class="iq-float-card iq-float-card-1" data-animate="floatIn">
+                        <i class="bi bi-wind text-info"></i>
+                        <div>
+                            <small>Gió</small>
+                            <strong>12 km/h</strong>
+                        </div>
+                    </div>
+                    <div class="iq-float-card iq-float-card-2" data-animate="floatIn">
+                        <i class="bi bi-thermometer-half text-warning"></i>
+                        <div>
+                            <small>Nhiệt độ</small>
+                            <strong>28°C</strong>
+                        </div>
+                    </div>
+                    <div class="iq-float-card iq-float-card-3" data-animate="floatIn">
+                        <i class="bi bi-droplet-fill text-primary"></i>
+                        <div>
+                            <small>Độ ẩm</small>
+                            <strong>72%</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 2: STATS BAR
+     3 con số nổi bật
+     ======================================== -->
+<section class="iq-stats-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 iq-stat-item" data-animate="countUp">
+                <div class="iq-stat-number" data-target="500000">0</div>
+                <div class="iq-stat-plus">+</div>
+                <div class="iq-stat-label">Địa điểm được theo dõi</div>
+            </div>
+            <div class="col-md-4 iq-stat-item iq-stat-border" data-animate="countUp">
+                <div class="iq-stat-number" data-target="100">0</div>
+                <div class="iq-stat-plus">+</div>
+                <div class="iq-stat-label">Quốc gia và vùng lãnh thổ</div>
+            </div>
+            <div class="col-md-4 iq-stat-item" data-animate="countUp">
+                <div class="iq-stat-number" data-target="10">0</div>
+                <div class="iq-stat-plus">M+</div>
+                <div class="iq-stat-label">Người dùng tin tưởng</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 3: FEATURES GRID
+     6 tính năng chính
+     ======================================== -->
+<section class="iq-features" id="features">
+    <div class="container">
+        <div class="iq-section-header text-center" data-animate="fadeInUp">
+            <div class="iq-section-badge">Tính năng nổi bật</div>
+            <h2 class="iq-section-title">Mọi thứ bạn cần để<br />bảo vệ sức khỏe</h2>
+            <p class="iq-section-subtitle">
+                Ứng dụng AirVisual cung cấp đầy đủ dữ liệu và công cụ giúp bạn
+                đưa ra quyết định thông minh về chất lượng không khí xung quanh.
+            </p>
+        </div>
+
+        <div class="row g-4 iq-features-grid">
+
+            <!-- Feature 1 -->
+            <div class="col-lg-4 col-md-6" data-animate="fadeInUp" data-delay="0">
+                <div class="iq-feature-card">
+                    <div class="iq-feature-icon iq-icon-blue">
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </div>
+                    <h4 class="iq-feature-title">Dữ liệu thời gian thực</h4>
+                    <p class="iq-feature-desc">
+                        Theo dõi chỉ số AQI, PM2.5, PM10, Ozone, NO₂, CO và SO₂
+                        cập nhật liên tục từ hàng nghìn trạm quan trắc chính phủ
+                        và cảm biến IQAir được xác thực.
+                    </p>
+                    <a href="#" class="iq-feature-link">Tìm hiểu thêm <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-lg-4 col-md-6" data-animate="fadeInUp" data-delay="100">
+                <div class="iq-feature-card">
+                    <div class="iq-feature-icon iq-icon-green">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h4 class="iq-feature-title">Dự báo 7 ngày AI</h4>
+                    <p class="iq-feature-desc">
+                        Mô hình dự báo được phát triển bằng Machine Learning và AI
+                        cung cấp dự báo chính xác lên đến 7 ngày, giúp bạn lên kế
+                        hoạch hoạt động ngoài trời hợp lý.
+                    </p>
+                    <a href="#" class="iq-feature-link">Tìm hiểu thêm <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="col-lg-4 col-md-6" data-animate="fadeInUp" data-delay="200">
+                <div class="iq-feature-card">
+                    <div class="iq-feature-icon iq-icon-orange">
+                        <i class="bi bi-bell-fill"></i>
+                    </div>
+                    <h4 class="iq-feature-title">Cảnh báo thông minh</h4>
+                    <p class="iq-feature-desc">
+                        Nhận thông báo tức thì khi chất lượng không khí thay đổi.
+                        Tùy chỉnh ngưỡng cảnh báo phù hợp với tình trạng sức khỏe
+                        của bạn và gia đình.
+                    </p>
+                    <a href="#" class="iq-feature-link">Tìm hiểu thêm <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="col-lg-4 col-md-6" data-animate="fadeInUp" data-delay="0">
+                <div class="iq-feature-card">
+                    <div class="iq-feature-icon iq-icon-purple">
+                        <i class="bi bi-map-fill"></i>
+                    </div>
+                    <h4 class="iq-feature-title">Bản đồ ô nhiễm toàn cầu</h4>
+                    <p class="iq-feature-desc">
+                        Xem bản đồ ô nhiễm không khí toàn cầu theo thời gian thực.
+                        Bao gồm dữ liệu vệ tinh, trạm quan trắc mặt đất và
+                        cảm biến cộng đồng.
+                    </p>
+                    <a href="#" class="iq-feature-link">Tìm hiểu thêm <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="col-lg-4 col-md-6" data-animate="fadeInUp" data-delay="100">
+                <div class="iq-feature-card">
+                    <div class="iq-feature-icon iq-icon-teal">
+                        <i class="bi bi-house-fill"></i>
+                    </div>
+                    <h4 class="iq-feature-title">Theo dõi trong nhà</h4>
+                    <p class="iq-feature-desc">
+                        Kết nối với màn hình AirVisual Pro để theo dõi PM2.5,
+                        CO₂, nhiệt độ và độ ẩm trong nhà. Điều khiển máy lọc
+                        không khí ngay từ ứng dụng.
+                    </p>
+                    <a href="#" class="iq-feature-link">Tìm hiểu thêm <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="col-lg-4 col-md-6" data-animate="fadeInUp" data-delay="200">
+                <div class="iq-feature-card">
+                    <div class="iq-feature-icon iq-icon-red">
+                        <i class="bi bi-heart-pulse-fill"></i>
+                    </div>
+                    <h4 class="iq-feature-title">Khuyến nghị sức khỏe</h4>
+                    <p class="iq-feature-desc">
+                        Nhận lời khuyên sức khỏe cá nhân hóa theo tình trạng của bạn
+                        (hen suyễn, dị ứng, tim mạch). Biết khi nào nên đeo khẩu trang
+                        và khi nào an toàn để ra ngoài.
+                    </p>
+                    <a href="#" class="iq-feature-link">Tìm hiểu thêm <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 4: AQI CHART
+     Biểu đồ Chart.js + bảng giải thích AQI
+     ======================================== -->
+<section class="iq-aqi-section" id="aqi">
+    <div class="container">
+        <div class="row align-items-center g-5">
+
+            <!-- Left: Chart -->
+            <div class="col-lg-7" data-animate="fadeInLeft">
+                <div class="iq-chart-wrapper">
+                    <div class="iq-chart-header">
+                        <h3 class="iq-chart-title">Chỉ số AQI — Đà Nẵng, 7 ngày qua</h3>
+                        <div class="iq-chart-tabs">
+                            <button class="iq-chart-tab active" data-period="7d">7 ngày</button>
+                            <button class="iq-chart-tab" data-period="30d">30 ngày</button>
+                            <button class="iq-chart-tab" data-period="1y">1 năm</button>
+                        </div>
+                    </div>
+                    <canvas id="aqiChart" height="280"></canvas>
+                </div>
+            </div>
+
+            <!-- Right: AQI Table -->
+            <div class="col-lg-5" data-animate="fadeInRight">
+                <div class="iq-section-badge mb-3">Hiểu về AQI</div>
+                <h2 class="iq-section-title mb-4">Chỉ số chất lượng<br />không khí là gì?</h2>
+                <p class="iq-section-desc mb-4">
+                    AQI (Air Quality Index) là thang đo tiêu chuẩn của EPA Hoa Kỳ,
+                    cho biết mức độ ô nhiễm không khí và tác động đến sức khỏe.
+                </p>
+
+                <!-- AQI Legend Table -->
+                <div class="iq-aqi-table">
+                    <div class="iq-aqi-row">
+                        <div class="iq-aqi-color" style="background:#00E400;"></div>
+                        <div class="iq-aqi-range">0–50</div>
+                        <div class="iq-aqi-status-text">Tốt</div>
+                        <div class="iq-aqi-desc-text">Không khí trong lành</div>
+                    </div>
+                    <div class="iq-aqi-row">
+                        <div class="iq-aqi-color" style="background:#FFFF00;"></div>
+                        <div class="iq-aqi-range">51–100</div>
+                        <div class="iq-aqi-status-text">Trung bình</div>
+                        <div class="iq-aqi-desc-text">Chấp nhận được</div>
+                    </div>
+                    <div class="iq-aqi-row">
+                        <div class="iq-aqi-color" style="background:#FF7E00;"></div>
+                        <div class="iq-aqi-range">101–150</div>
+                        <div class="iq-aqi-status-text">Không tốt cho nhóm nhạy cảm</div>
+                        <div class="iq-aqi-desc-text">Trẻ em, người già nên hạn chế</div>
+                    </div>
+                    <div class="iq-aqi-row">
+                        <div class="iq-aqi-color" style="background:#FF0000;"></div>
+                        <div class="iq-aqi-range">151–200</div>
+                        <div class="iq-aqi-status-text">Có hại</div>
+                        <div class="iq-aqi-desc-text">Mọi người nên hạn chế ra ngoài</div>
+                    </div>
+                    <div class="iq-aqi-row">
+                        <div class="iq-aqi-color" style="background:#8F3F97;"></div>
+                        <div class="iq-aqi-range">201–300</div>
+                        <div class="iq-aqi-status-text">Rất có hại</div>
+                        <div class="iq-aqi-desc-text">Tránh mọi hoạt động ngoài trời</div>
+                    </div>
+                    <div class="iq-aqi-row">
+                        <div class="iq-aqi-color" style="background:#7E0023;"></div>
+                        <div class="iq-aqi-range">301+</div>
+                        <div class="iq-aqi-status-text">Nguy hiểm</div>
+                        <div class="iq-aqi-desc-text">Tình trạng khẩn cấp về sức khỏe</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 5: APP SHOWCASE (Phone Screenshots)
+     ======================================== -->
+<section class="iq-showcase" id="showcase">
+    <div class="container">
+        <div class="iq-section-header text-center mb-5" data-animate="fadeInUp">
+            <div class="iq-section-badge">Giao diện ứng dụng</div>
+            <h2 class="iq-section-title">Đẹp, trực quan<br />và dễ sử dụng</h2>
+        </div>
+
+        <div class="iq-showcase-phones" data-animate="fadeInUp">
+            <!-- Phone 1: Map Screen -->
+            <div class="iq-showcase-phone iq-sp-side">
+                <div class="iq-sp-frame">
+                    <div class="iq-sp-screen iq-sp-map">
+                        <div class="iq-sp-screen-header">Bản đồ thế giới</div>
+                        <div class="iq-sp-map-dots">
+                            <div class="iq-map-dot" style="top:30%;left:40%;background:#00E400;" title="Tốt"></div>
+                            <div class="iq-map-dot" style="top:45%;left:55%;background:#FFFF00;" title="TB"></div>
+                            <div class="iq-map-dot" style="top:35%;left:70%;background:#FF7E00;" title="Xấu"></div>
+                            <div class="iq-map-dot" style="top:60%;left:35%;background:#00E400;" title="Tốt"></div>
+                            <div class="iq-map-dot" style="top:55%;left:65%;background:#FF0000;" title="Có hại"></div>
+                        </div>
+                        <div class="iq-sp-legend">
+                            <span style="background:#00E400"></span> Tốt
+                            <span style="background:#FF7E00"></span> Trung bình
+                            <span style="background:#FF0000"></span> Có hại
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phone 2: Main Screen (center/featured) -->
+            <div class="iq-showcase-phone iq-sp-center">
+                <div class="iq-sp-frame iq-sp-frame-main">
+                    <div class="iq-sp-screen iq-sp-main">
+                        <div class="iq-sp-top-bar">
+                            <span><i class="bi bi-geo-alt-fill"></i> Hà Nội</span>
+                            <span class="iq-sp-time">08:45</span>
+                        </div>
+                        <div class="iq-sp-aqi-display">
+                            <div class="iq-sp-aqi-num" style="color:#FFFF00;">87</div>
+                            <div class="iq-sp-aqi-us">AQI US</div>
+                            <div class="iq-sp-aqi-cat" style="color:#FFFF00;">Trung bình</div>
+                        </div>
+                        <div class="iq-sp-face">😐</div>
+                        <p class="iq-sp-advice">Người nhạy cảm nên hạn chế ở ngoài lâu</p>
+                        <div class="iq-sp-mini-chart">
+                            <canvas id="showcaseChart" width="200" height="60"></canvas>
+                        </div>
+                        <div class="iq-sp-polls">
+                            <div class="iq-sp-poll"><span>PM2.5</span><b>24.1</b></div>
+                            <div class="iq-sp-poll"><span>O₃</span><b>41.2</b></div>
+                            <div class="iq-sp-poll"><span>NO₂</span><b>18.9</b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phone 3: Ranking Screen -->
+            <div class="iq-showcase-phone iq-sp-side">
+                <div class="iq-sp-frame">
+                    <div class="iq-sp-screen iq-sp-rank">
+                        <div class="iq-sp-screen-header">Xếp hạng thành phố</div>
+                        <div class="iq-rank-list">
+                            <div class="iq-rank-item">
+                                <span class="iq-rank-num">1</span>
+                                <span class="iq-rank-city">Hà Nội</span>
+                                <span class="iq-rank-aqi" style="background:#FFFF00;color:#333;">87</span>
+                            </div>
+                            <div class="iq-rank-item">
+                                <span class="iq-rank-num">2</span>
+                                <span class="iq-rank-city">TP.HCM</span>
+                                <span class="iq-rank-aqi" style="background:#FF7E00;color:#fff;">112</span>
+                            </div>
+                            <div class="iq-rank-item">
+                                <span class="iq-rank-num">3</span>
+                                <span class="iq-rank-city">Đà Nẵng</span>
+                                <span class="iq-rank-aqi" style="background:#00E400;color:#333;">42</span>
+                            </div>
+                            <div class="iq-rank-item">
+                                <span class="iq-rank-num">4</span>
+                                <span class="iq-rank-city">Cần Thơ</span>
+                                <span class="iq-rank-aqi" style="background:#00E400;color:#333;">38</span>
+                            </div>
+                            <div class="iq-rank-item">
+                                <span class="iq-rank-num">5</span>
+                                <span class="iq-rank-city">Hải Phòng</span>
+                                <span class="iq-rank-aqi" style="background:#FFFF00;color:#333;">67</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 6: POLLUTANTS
+     6 chất ô nhiễm được theo dõi
+     ======================================== -->
+<section class="iq-pollutants" id="pollutants">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5" data-animate="fadeInLeft">
+                <div class="iq-section-badge">Chất ô nhiễm</div>
+                <h2 class="iq-section-title">Theo dõi 6 chất<br />ô nhiễm chính</h2>
+                <p class="iq-section-desc">
+                    IQAir AirVisual theo dõi đầy đủ 6 chất ô nhiễm theo tiêu chuẩn
+                    EPA Hoa Kỳ — cho bạn bức tranh toàn diện về chất lượng không khí
+                    đang thở mỗi ngày.
+                </p>
+                <a href="#download" class="btn iq-btn-primary mt-3">
+                    <i class="bi bi-download me-2"></i> Tải ứng dụng ngay
+                </a>
+            </div>
+            <div class="col-lg-7" data-animate="fadeInRight">
+                <div class="row g-3 iq-poll-grid">
+                    <!-- PM2.5 -->
+                    <div class="col-md-4 col-6">
+                        <div class="iq-poll-card">
+                            <div class="iq-poll-icon" style="background:rgba(255,126,0,0.12);color:#FF7E00;">
+                                <i class="bi bi-cloud-haze2-fill"></i>
+                            </div>
+                            <div class="iq-poll-name">PM2.5</div>
+                            <div class="iq-poll-fullname">Bụi mịn siêu nhỏ</div>
+                            <div class="iq-poll-bar">
+                                <div class="iq-poll-fill" style="width:40%;background:#FF7E00;"></div>
+                            </div>
+                            <div class="iq-poll-value">8.2 µg/m³</div>
+                        </div>
+                    </div>
+                    <!-- PM10 -->
+                    <div class="col-md-4 col-6">
+                        <div class="iq-poll-card">
+                            <div class="iq-poll-icon" style="background:rgba(255,200,0,0.12);color:#FFC800;">
+                                <i class="bi bi-cloud-fill"></i>
+                            </div>
+                            <div class="iq-poll-name">PM10</div>
+                            <div class="iq-poll-fullname">Bụi thô</div>
+                            <div class="iq-poll-bar">
+                                <div class="iq-poll-fill" style="width:28%;background:#FFC800;"></div>
+                            </div>
+                            <div class="iq-poll-value">14.1 µg/m³</div>
+                        </div>
+                    </div>
+                    <!-- Ozone -->
+                    <div class="col-md-4 col-6">
+                        <div class="iq-poll-card">
+                            <div class="iq-poll-icon" style="background:rgba(0,200,83,0.12);color:#00C853;">
+                                <i class="bi bi-layers-fill"></i>
+                            </div>
+                            <div class="iq-poll-name">O₃</div>
+                            <div class="iq-poll-fullname">Ozone mặt đất</div>
+                            <div class="iq-poll-bar">
+                                <div class="iq-poll-fill" style="width:35%;background:#00C853;"></div>
+                            </div>
+                            <div class="iq-poll-value">31.4 ppb</div>
+                        </div>
+                    </div>
+                    <!-- NO2 -->
+                    <div class="col-md-4 col-6">
+                        <div class="iq-poll-card">
+                            <div class="iq-poll-icon" style="background:rgba(25,118,210,0.12);color:#1976D2;">
+                                <i class="bi bi-wind"></i>
+                            </div>
+                            <div class="iq-poll-name">NO₂</div>
+                            <div class="iq-poll-fullname">Nitrogen dioxide</div>
+                            <div class="iq-poll-bar">
+                                <div class="iq-poll-fill" style="width:22%;background:#1976D2;"></div>
+                            </div>
+                            <div class="iq-poll-value">12.7 ppb</div>
+                        </div>
+                    </div>
+                    <!-- CO -->
+                    <div class="col-md-4 col-6">
+                        <div class="iq-poll-card">
+                            <div class="iq-poll-icon" style="background:rgba(143,63,151,0.12);color:#8F3F97;">
+                                <i class="bi bi-radioactive"></i>
+                            </div>
+                            <div class="iq-poll-name">CO</div>
+                            <div class="iq-poll-fullname">Carbon monoxide</div>
+                            <div class="iq-poll-bar">
+                                <div class="iq-poll-fill" style="width:15%;background:#8F3F97;"></div>
+                            </div>
+                            <div class="iq-poll-value">0.3 ppm</div>
+                        </div>
+                    </div>
+                    <!-- SO2 -->
+                    <div class="col-md-4 col-6">
+                        <div class="iq-poll-card">
+                            <div class="iq-poll-icon" style="background:rgba(255,0,0,0.12);color:#FF0000;">
+                                <i class="bi bi-exclamation-circle-fill"></i>
+                            </div>
+                            <div class="iq-poll-name">SO₂</div>
+                            <div class="iq-poll-fullname">Sulfur dioxide</div>
+                            <div class="iq-poll-bar">
+                                <div class="iq-poll-fill" style="width:10%;background:#FF0000;"></div>
+                            </div>
+                            <div class="iq-poll-value">2.1 ppb</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 7: PARTNERS
+     Logo UNEP, EPA, v.v.
+     ======================================== -->
+<section class="iq-partners">
+    <div class="container">
+        <div class="text-center mb-5" data-animate="fadeInUp">
+            <p class="iq-partners-title">Được tin tưởng bởi các tổ chức hàng đầu thế giới</p>
+        </div>
+        <div class="iq-partners-logos" data-animate="fadeInUp">
+            <div class="iq-partner-logo">
+                <div class="iq-partner-badge">
+                    <i class="bi bi-globe2 me-2"></i> UNEP
+                </div>
+                <small>Chương trình Môi trường LHQ</small>
+            </div>
+            <div class="iq-partner-logo">
+                <div class="iq-partner-badge">
+                    <i class="bi bi-tree me-2"></i> US EPA
+                </div>
+                <small>Cơ quan Bảo vệ Môi trường Hoa Kỳ</small>
+            </div>
+            <div class="iq-partner-logo">
+                <div class="iq-partner-badge">
+                    <i class="bi bi-heart-fill me-2"></i> WHO
+                </div>
+                <small>Tổ chức Y tế Thế giới</small>
+            </div>
+            <div class="iq-partner-logo">
+                <div class="iq-partner-badge">
+                    <i class="bi bi-cloud-sun me-2"></i> WMO
+                </div>
+                <small>Tổ chức Khí tượng Thế giới</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 8: DOWNLOAD CTA
+     Banner cuối trang
+     ======================================== -->
+<section class="iq-download-cta" id="download">
+    <div class="iq-cta-bg-shape"></div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7" data-animate="fadeInLeft">
+                <div class="iq-section-badge mb-3" style="background:rgba(255,255,255,0.15);color:#fff;">
+                    Miễn phí 100%
+                </div>
+                <h2 class="iq-cta-title">
+                    Tải IQAir AirVisual<br />ngay hôm nay
+                </h2>
+                <p class="iq-cta-desc">
+                    Hơn 10 triệu người đang sử dụng IQAir để bảo vệ sức khỏe của họ và gia đình.
+                    Tham gia ngay — hoàn toàn miễn phí.
+                </p>
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <a href="#" class="iq-store-btn iq-store-apple">
+                        <i class="bi bi-apple iq-store-icon"></i>
+                        <div class="iq-store-text">
+                            <small>Tải về trên</small>
+                            <strong>App Store</strong>
+                        </div>
+                    </a>
+                    <a href="#" class="iq-store-btn iq-store-google">
+                        <i class="bi bi-google-play iq-store-icon" style="color:#00C853;"></i>
+                        <div class="iq-store-text">
+                            <small>Tải về trên</small>
+                            <strong>Google Play</strong>
+                        </div>
+                    </a>
+                </div>
+                <!-- App store ratings -->
+                <div class="iq-cta-ratings mt-4">
+                    <div class="iq-rating-item">
+                        <div class="iq-rating-stars">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </div>
+                        <span>4.8 — App Store</span>
+                    </div>
+                    <div class="iq-rating-sep"></div>
+                    <div class="iq-rating-item">
+                        <div class="iq-rating-stars">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </div>
+                        <span>4.7 — Google Play</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 text-center" data-animate="fadeInRight">
+                <!-- QR Code placeholder -->
+                <div class="iq-qr-wrapper">
+                    <div class="iq-qr-box">
+                        <div class="iq-qr-inner">
+                            <!-- Simulated QR code SVG -->
+                            <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="5" y="5" width="35" height="35" rx="4" stroke="#fff" stroke-width="3" fill="none" />
+                                <rect x="13" y="13" width="19" height="19" fill="#fff" rx="2" />
+                                <rect x="80" y="5" width="35" height="35" rx="4" stroke="#fff" stroke-width="3" fill="none" />
+                                <rect x="88" y="13" width="19" height="19" fill="#fff" rx="2" />
+                                <rect x="5" y="80" width="35" height="35" rx="4" stroke="#fff" stroke-width="3" fill="none" />
+                                <rect x="13" y="88" width="19" height="19" fill="#fff" rx="2" />
+                                <rect x="55" y="5" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="67" y="5" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="55" y="17" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="67" y="17" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="55" y="55" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="67" y="55" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="79" y="55" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="91" y="55" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="55" y="67" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="79" y="67" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="55" y="79" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="67" y="79" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="91" y="79" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="55" y="91" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="79" y="91" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="103" y="55" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="103" y="79" width="8" height="8" fill="#fff" rx="1" />
+                                <rect x="103" y="103" width="8" height="8" fill="#fff" rx="1" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="iq-qr-text">Quét QR để tải về</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
