@@ -1,0 +1,191 @@
+﻿@page
+@model IQAirClone.Pages.HealthModel
+@{
+    ViewData["Title"] = "Sức khỏe & Không khí";
+    Layout = "_DashboardLayout";
+}
+
+<!-- ===== HERO HEALTH ===== -->
+<div class="health-hero">
+    <div class="health-hero-content">
+        <div>
+            <div class="health-hero-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+                Theo dõi sức khỏe không khí
+            </div>
+            <h1 class="health-hero-title">Bảo vệ sức khỏe<br /><span>của bạn & gia đình</span></h1>
+            <p class="health-hero-desc">Lời khuyên sức khỏe cá nhân hóa dựa trên chất lượng không khí thực tế tại khu vực bạn đang sống.</p>
+        </div>
+        <!-- AQI tổng quan hôm nay -->
+        <div class="health-overview-cards">
+            <div class="health-ov-card">
+                <div class="health-ov-icon" style="background:rgba(45,198,83,0.15);color:#2DC653">😊</div>
+                <div class="health-ov-val">3</div>
+                <div class="health-ov-label">Tỉnh AQI Tốt</div>
+            </div>
+            <div class="health-ov-card">
+                <div class="health-ov-icon" style="background:rgba(245,166,35,0.15);color:#F5A623">🙂</div>
+                <div class="health-ov-val">7</div>
+                <div class="health-ov-label">Tỉnh Trung bình</div>
+            </div>
+            <div class="health-ov-card">
+                <div class="health-ov-icon" style="background:rgba(232,98,42,0.15);color:#E8622A">😷</div>
+                <div class="health-ov-val">2</div>
+                <div class="health-ov-label">Tỉnh Có hại</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MAIN HEALTH CONTENT ===== -->
+<div class="health-body">
+
+    <!-- LEFT COLUMN -->
+    <div class="health-left">
+
+        <!-- Lời khuyên theo nhóm -->
+        <div class="health-section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1B8CDE" stroke-width="2" width="16" height="16">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+            </svg>
+            Lời khuyên theo nhóm đối tượng
+        </div>
+
+        <div class="health-groups">
+            @foreach (var group in Model.HealthGroups)
+            {
+                <div class="health-group-card @group.CssClass">
+                    <div class="health-group-header">
+                        <span class="health-group-icon">@group.Icon</span>
+                        <div>
+                            <div class="health-group-name">@group.Name</div>
+                            <div class="health-group-risk">@group.RiskLevel</div>
+                        </div>
+                        <span class="health-group-badge" style="background:@group.BadgeColor;color:@group.BadgeText">@group.BadgeLabel</span>
+                    </div>
+                    <ul class="health-group-tips">
+                        @foreach (var tip in group.Tips)
+                        {
+                            <li>@tip</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+
+        <!-- Cảnh báo khẩn -->
+        <div class="health-alert-card">
+            <div class="health-alert-icon">⚠️</div>
+            <div>
+                <div class="health-alert-title">Cảnh báo: TP. Hồ Chí Minh AQI = 112</div>
+                <div class="health-alert-desc">Chất lượng không khí ở mức KÉM. Người nhạy cảm nên hạn chế hoạt động ngoài trời. Đeo khẩu trang N95 nếu cần ra ngoài.</div>
+            </div>
+        </div>
+
+        <!-- Hoạt động nên/không nên -->
+        <div class="health-section-title" style="margin-top:24px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1B8CDE" stroke-width="2" width="16" height="16">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="16" />
+                <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+            Hôm nay nên / không nên làm gì?
+        </div>
+        <div class="health-do-grid">
+            <div class="health-do-col health-do-yes">
+                <div class="health-do-header">✅ Nên làm</div>
+                @foreach (var item in Model.DoList)
+                {
+                    <div class="health-do-item">@item</div>
+                }
+            </div>
+            <div class="health-do-col health-do-no">
+                <div class="health-do-header">❌ Hạn chế</div>
+                @foreach (var item in Model.DontList)
+                {
+                    <div class="health-do-item">@item</div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="health-right">
+
+        <!-- Biểu đồ AQI 7 ngày -->
+        <div class="health-chart-card">
+            <div class="health-chart-header">
+                <span class="health-chart-title">📈 Xu hướng AQI 7 ngày qua</span>
+                <div class="health-chart-tabs">
+                    <button class="health-tab active" data-city="hanoi">Hà Nội</button>
+                    <button class="health-tab" data-city="hcm">TP.HCM</button>
+                    <button class="health-tab" data-city="danang">Đà Nẵng</button>
+                </div>
+            </div>
+            <canvas id="healthTrendChart" height="200"></canvas>
+        </div>
+
+        <!-- Chỉ số PM2.5 theo giờ hôm nay -->
+        <div class="health-chart-card">
+            <div class="health-chart-header">
+                <span class="health-chart-title">🕐 PM2.5 theo giờ hôm nay</span>
+                <span class="health-chart-sub">Đơn vị: µg/m³</span>
+            </div>
+            <canvas id="healthHourlyChart" height="160"></canvas>
+        </div>
+
+        <!-- Chỉ số sức khỏe -->
+        <div class="health-index-card">
+            <div class="health-section-title" style="margin-bottom:14px">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1B8CDE" stroke-width="2" width="16" height="16">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+                Chỉ số sức khỏe môi trường
+            </div>
+            @foreach (var idx in Model.HealthIndexes)
+            {
+                <div class="health-idx-row">
+                    <div class="health-idx-left">
+                        <span class="health-idx-icon">@idx.Icon</span>
+                        <div>
+                            <div class="health-idx-name">@idx.Name</div>
+                            <div class="health-idx-desc">@idx.Description</div>
+                        </div>
+                    </div>
+                    <div class="health-idx-right">
+                        <div class="health-idx-bar">
+                            <div class="health-idx-fill" style="width:@idx.Percent%;background:@idx.Color"></div>
+                        </div>
+                        <span class="health-idx-val" style="color:@idx.Color">@idx.Value</span>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Khuyến nghị khẩu trang -->
+        <div class="health-mask-card">
+            <div class="health-mask-title">😷 Khuyến nghị khẩu trang</div>
+            <div class="health-mask-grid">
+                @foreach (var mask in Model.MaskAdvice)
+                {
+                    <div class="health-mask-item @(mask.Recommended ? "recommended" : "")">
+                        <div class="health-mask-name">@mask.Name</div>
+                        <div class="health-mask-eff">Lọc @mask.Efficiency</div>
+                        <div class="health-mask-status">@(mask.Recommended ? "✅ Phù hợp" : "⚠️ Không đủ")</div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_Quickbar" />
+
+@section Scripts {
+    <script src="~/js/health.js"></script>
+}

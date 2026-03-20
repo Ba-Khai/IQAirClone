@@ -1,52 +1,101 @@
-﻿@* =====================================================
-   _DashboardLayout.cshtml
-   Layout RIÊNG cho trang Dashboard.
-   Đặt vào Pages/Shared/ — KHÔNG đụng _Layout.cshtml cũ
-   ===================================================== *@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - IQAir</title>
-
-    <!-- Font chữ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
-          rel="stylesheet" />
-
-    <!-- Chart.js -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
-
-    <!-- CSS gốc của project (giữ biến màu IQAir) -->
     <link rel="stylesheet" href="~/css/site.css" />
-
-    <!-- CSS riêng của Dashboard (tiền tố db- để không đụng site.css) -->
     <link rel="stylesheet" href="~/css/dashboard.css" />
+    <link rel="stylesheet" href="~/css/pages.css" />
 </head>
 <body class="db-page">
 
-    <!-- Nav Dashboard -->
-    <partial name="_DashboardNav" />
+    @{
+        var currentPage = ViewContext.RouteData.Values["page"]?.ToString() ?? "";
+    }
 
-    <!-- Nội dung trang -->
+    <!-- ===== NAV (nhúng thẳng, không dùng partial) ===== -->
+    <nav class="db-navbar">
+        <a class="db-nav-brand" href="/">
+            <div class="db-brand-icon">
+                <svg viewBox="0 0 24 24" fill="white" width="16" height="16">
+                    <path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 18a8 8 0 110-16 8 8 0 010 16zm-1-5h2v2h-2zm0-8h2v6h-2z" />
+                </svg>
+            </div>
+            <span class="db-brand-name">IQAir</span>
+        </a>
+
+        <div class="db-nav-links">
+            <a class="db-nav-link @(currentPage == "/Index" || currentPage == "/" ? "db-nav-active" : "")" href="/">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+                Trang chủ
+            </a>
+            <a class="db-nav-link @(currentPage == "/Dashboard" ? "db-nav-active" : "")" href="/Dashboard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                </svg>
+                Dashboard
+            </a>
+            <a class="db-nav-link @(currentPage == "/AirMap" ? "db-nav-active" : "")" href="/AirMap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+                    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
+                    <line x1="8" y1="2" x2="8" y2="18" />
+                    <line x1="16" y1="6" x2="16" y2="22" />
+                </svg>
+                Bản đồ
+            </a>
+            <a class="db-nav-link @(currentPage == "/Health" ? "db-nav-active" : "")" href="/Health">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+                Sức khỏe
+            </a>
+        </div>
+
+        <div class="db-nav-right">
+            <div class="db-nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+            </div>
+            <div class="db-nav-icon db-notif">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 01-3.46 0" />
+                </svg>
+                <span class="db-notif-dot"></span>
+            </div>
+            <div class="db-avatar">
+                <div class="db-avatar-img">NT</div>
+                <span class="db-avatar-name">Nguyễn Thanh</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== CONTENT ===== -->
     <div class="db-app">
         <div class="db-main">
             @RenderBody()
         </div>
-        <!-- Bottom quickbar -->
-        <partial name="_Quickbar" />
     </div>
 
-    <!-- Bootstrap JS (kế thừa từ project gốc nếu có) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- JS gốc -->
     <script src="~/js/site.js"></script>
-
-    <!-- JS riêng Dashboard -->
     <script src="~/js/dashboard.js"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
