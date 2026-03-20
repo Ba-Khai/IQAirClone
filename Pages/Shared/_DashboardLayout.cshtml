@@ -1,0 +1,52 @@
+﻿@* =====================================================
+   _DashboardLayout.cshtml
+   Layout RIÊNG cho trang Dashboard.
+   Đặt vào Pages/Shared/ — KHÔNG đụng _Layout.cshtml cũ
+   ===================================================== *@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IQAir</title>
+
+    <!-- Font chữ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+          rel="stylesheet" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+    <!-- CSS gốc của project (giữ biến màu IQAir) -->
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- CSS riêng của Dashboard (tiền tố db- để không đụng site.css) -->
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+</head>
+<body class="db-page">
+
+    <!-- Nav Dashboard -->
+    <partial name="_DashboardNav" />
+
+    <!-- Nội dung trang -->
+    <div class="db-app">
+        <div class="db-main">
+            @RenderBody()
+        </div>
+        <!-- Bottom quickbar -->
+        <partial name="_Quickbar" />
+    </div>
+
+    <!-- Bootstrap JS (kế thừa từ project gốc nếu có) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS gốc -->
+    <script src="~/js/site.js"></script>
+
+    <!-- JS riêng Dashboard -->
+    <script src="~/js/dashboard.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
